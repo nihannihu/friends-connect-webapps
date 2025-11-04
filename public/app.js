@@ -245,8 +245,7 @@ function connectSocket() {
             calculateRouteForUser(username, latitude, longitude);
         }
         
-        // Fit map to show all markers
-        fitMapToMarkers();
+        // Removed auto-zoom to allow manual zoom control
     });
     
     socket.on('userJoined', async (data) => {
@@ -589,13 +588,16 @@ async function calculateRoute() {
         
         if (data.features && data.features.length > 0) {
             const route = data.features[0];
-            const duration = Math.round(route.properties.time / 60); // Convert to minutes
+            const totalMinutes = Math.round(route.properties.time / 60); // Convert to minutes
             const distance = (route.properties.distance / 1000).toFixed(2); // Convert to km
+            
+            // Format time properly
+            const timeDisplay = formatETA(totalMinutes);
             
             // Update ETA display
             document.getElementById('etaDisplay').innerHTML = `
-                <div class="eta-value">${duration}</div>
-                <div class="eta-label">minutes (${distance} km)</div>
+                <div class="eta-value">${timeDisplay}</div>
+                <div class="eta-label">(${distance} km)</div>
             `;
             
             // Send ETA to server
@@ -605,7 +607,7 @@ async function calculateRoute() {
                     groupId: currentUser.groupId,
                     latitude: currentUser.location.latitude,
                     longitude: currentUser.location.longitude,
-                    eta: duration
+                    eta: totalMinutes
                 });
             }
             
@@ -615,6 +617,21 @@ async function calculateRoute() {
         }
     } catch (error) {
         console.error('Error calculating route:', error);
+    }
+}
+
+// Format ETA to show hours and minutes properly
+function formatETA(totalMinutes) {
+    if (totalMinutes < 60) {
+        return `${totalMinutes} min`;
+    } else {
+        const hours = Math.floor(totalMinutes / 60);
+        const minutes = totalMinutes % 60;
+        if (minutes === 0) {
+            return `${hours} hr`;
+        } else {
+            return `${hours} hr ${minutes} min`;
+        }
     }
 }
 
@@ -832,12 +849,19 @@ function updateMembersList(members) {
         
         const memberItem = document.createElement('div');
         memberItem.className = `member-item ${member.username === currentUser.username ? 'self' : ''}`;
+        
+        // Format ETA properly
+        let etaDisplay = '--';
+        if (member.eta) {
+            etaDisplay = formatETA(member.eta);
+        }
+        
         memberItem.innerHTML = `
             <div class="member-name">
                 <span class="member-status"></span>
                 <span>${member.username}${member.username === currentUser.username ? ' (You)' : ''}</span>
             </div>
-            <span class="member-eta">${member.eta ? member.eta + ' min' : '--'}</span>
+            <span class="member-eta">${etaDisplay}</span>
         `;
         membersList.appendChild(memberItem);
     });

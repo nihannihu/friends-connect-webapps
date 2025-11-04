@@ -14,7 +14,7 @@ let currentUser = {
 let groupDestination = null;
 let userMarkers = {};
 let destinationMarker = null;
-let routeLayer = null;
+let userRoutes = {}; // Store routes for each user
 let locationTracking = false;
 let watchId = null;
 
@@ -212,6 +212,11 @@ function connectSocket() {
                         member.currentLocation.longitude,
                         member.username === currentUser.username
                     );
+                    
+                    // Calculate route for other users if destination exists
+                    if (data.destination && data.destination.latitude && member.username !== currentUser.username) {
+                        calculateRouteForUser(member.username, member.currentLocation.latitude, member.currentLocation.longitude);
+                    }
                 }
             });
         }
@@ -234,6 +239,11 @@ function connectSocket() {
         console.log(`Location update from ${username}:`, latitude, longitude);
         addUserMarker(username, latitude, longitude, username === currentUser.username);
         updateMemberETA(username, eta);
+        
+        // Calculate and draw route for other users if destination is set
+        if (groupDestination && username !== currentUser.username) {
+            calculateRouteForUser(username, latitude, longitude);
+        }
         
         // Fit map to show all markers
         fitMapToMarkers();
@@ -490,11 +500,13 @@ function clearDestinationUI() {
         destinationMarker = null;
     }
     
-    // Remove route from map
-    if (routeLayer) {
-        map.removeLayer(routeLayer);
-        routeLayer = null;
-    }
+    // Remove all routes from map
+    Object.values(userRoutes).forEach(route => {
+        if (route) {
+            map.removeLayer(route);
+        }
+    });
+    userRoutes = {};
     
     // Reset destination display
     const destCard = document.getElementById('destinationCard');
@@ -597,20 +609,49 @@ async function calculateRoute() {
                 });
             }
             
-            // Draw route on map
-            if (routeLayer) {
-                map.removeLayer(routeLayer);
-            }
-            
+            // Draw route on map for current user
             const coordinates = route.geometry.coordinates[0].map(coord => [coord[1], coord[0]]);
-            routeLayer = L.polyline(coordinates, {
-                color: '#4F46E5',
-                weight: 4,
-                opacity: 0.7
-            }).addTo(map);
+            drawUserRoute(currentUser.username, coordinates, true);
         }
     } catch (error) {
         console.error('Error calculating route:', error);
+    }
+}
+
+// Draw route for a specific user
+function drawUserRoute(username, coordinates, isSelf = false) {
+    // Remove old route for this user
+    if (userRoutes[username]) {
+        map.removeLayer(userRoutes[username]);
+    }
+    
+    // Draw new route with different color for each user
+    const color = isSelf ? '#4F46E5' : '#10B981'; // Purple for self, Green for others
+    userRoutes[username] = L.polyline(coordinates, {
+        color: color,
+        weight: 4,
+        opacity: 0.7
+    }).addTo(map);
+}
+
+// Calculate and draw route for other users
+async function calculateRouteForUser(username, userLat, userLng) {
+    if (!groupDestination) return;
+    
+    try {
+        const response = await fetch(
+            `https://api.geoapify.com/v1/routing?waypoints=${userLat},${userLng}|${groupDestination.latitude},${groupDestination.longitude}&mode=drive&apiKey=${GEOAPIFY_API_KEY}`
+        );
+        const data = await response.json();
+        
+        if (data.features && data.features.length > 0) {
+            const route = data.features[0];
+            const coordinates = route.geometry.coordinates[0].map(coord => [coord[1], coord[0]]);
+            drawUserRoute(username, coordinates, false);
+            console.log(`Drew route for ${username}`);
+        }
+    } catch (error) {
+        console.error(`Error calculating route for ${username}:`, error);
     }
 }
 

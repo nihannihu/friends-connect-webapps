@@ -220,5 +220,10 @@ io.on('connection', (socket) => {
 
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
+  console.log(`🚀 Server running on port ${PORT}`);
+  if (process.env.NODE_ENV === 'production') {
+    console.log('🌐 Production URL: https://friend-navigator-web-app.onrender.com');
+  } else {
+    console.log(`🌐 Local URL: http://localhost:${PORT}`);
+  }
 });

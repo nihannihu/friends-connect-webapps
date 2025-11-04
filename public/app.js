@@ -1,5 +1,6 @@
 // Configuration
-const API_BASE_URL = 'http://localhost:3000';
+// Automatically detect if running locally or on production
+const API_BASE_URL = window.location.origin;
 const GEOAPIFY_API_KEY = 'aacb5a4e767e4e5993d5b2e4202bf541';
 
 // Global variables
@@ -130,14 +131,36 @@ function setupEventListeners() {
 
 // Socket.IO Connection
 function connectSocket() {
-    socket = io(API_BASE_URL);
+    socket = io(API_BASE_URL, {
+        transports: ['websocket', 'polling'],
+        reconnection: true,
+        reconnectionDelay: 1000,
+        reconnectionDelayMax: 5000,
+        reconnectionAttempts: 5
+    });
     
     socket.on('connect', () => {
         console.log('Connected to server');
+        showAlert('Connected to server!', 'success');
         socket.emit('joinGroup', {
             username: currentUser.username,
             groupId: currentUser.groupId
         });
+    });
+    
+    socket.on('connect_error', (error) => {
+        console.error('Connection error:', error);
+        showAlert('Connection error. Retrying...', 'warning');
+    });
+    
+    socket.on('disconnect', () => {
+        console.log('Disconnected from server');
+        showAlert('Disconnected from server', 'warning');
+    });
+    
+    socket.on('reconnect', (attemptNumber) => {
+        console.log('Reconnected after', attemptNumber, 'attempts');
+        showAlert('Reconnected to server!', 'success');
     });
     
     socket.on('groupMembers', (members) => {

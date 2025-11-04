@@ -131,12 +131,32 @@ io.on('connection', (socket) => {
     }
     await user.save();
     
-    // Notify group members
-    io.to(groupId).emit('userJoined', { username, groupId });
+    // Get group information with destination
+    const group = await Group.findOne({ groupId });
     
-    // Send current group members
+    // Send complete group state to the new joiner
     const groupUsers = await User.find({ groupId, isOnline: true });
-    socket.emit('groupMembers', groupUsers);
+    
+    // Send group data including destination and all members
+    socket.emit('groupState', {
+      group: group,
+      members: groupUsers,
+      destination: group?.destination || null
+    });
+    
+    // Notify OTHER group members that new user joined
+    socket.to(groupId).emit('userJoined', { username, groupId });
+    
+    // If this user has location, broadcast it to the group
+    if (user.currentLocation && user.currentLocation.latitude) {
+      io.to(groupId).emit('memberLocationUpdate', {
+        username: user.username,
+        latitude: user.currentLocation.latitude,
+        longitude: user.currentLocation.longitude,
+        eta: user.eta,
+        timestamp: user.currentLocation.timestamp
+      });
+    }
     
     console.log(`✅ ${username} joined group ${groupId}`);
   });

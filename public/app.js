@@ -167,14 +167,61 @@ function connectSocket() {
         updateMembersList(members);
     });
     
-    socket.on('memberLocationUpdate', (data) => {
-        const { username, latitude, longitude, eta } = data;
-        addUserMarker(username, latitude, longitude, username === currentUser.username);
-        updateMemberETA(username, eta);
+    // Handle complete group state when joining
+    socket.on('groupState', (data) => {
+        console.log('Received group state:', data);
+        
+        // Update members list
+        if (data.members) {
+            updateMembersList(data.members);
+            
+            // Display all members' locations on map
+            data.members.forEach(member => {
+                if (member.currentLocation && member.currentLocation.latitude) {
+                    addUserMarker(
+                        member.username,
+                        member.currentLocation.latitude,
+                        member.currentLocation.longitude,
+                        member.username === currentUser.username
+                    );
+                }
+            });
+        }
+        
+        // Set destination if it exists
+        if (data.destination && data.destination.latitude) {
+            groupDestination = data.destination;
+            updateDestinationDisplay(data.destination);
+            addDestinationMarker(data.destination.latitude, data.destination.longitude);
+            
+            // Calculate route if user has location
+            if (currentUser.location) {
+                calculateRoute();
+            }
+        }
     });
     
-    socket.on('userJoined', (data) => {
+    socket.on('memberLocationUpdate', (data) => {
+        const { username, latitude, longitude, eta } = data;
+        console.log(`Location update from ${username}:`, latitude, longitude);
+        addUserMarker(username, latitude, longitude, username === currentUser.username);
+        updateMemberETA(username, eta);
+        
+        // Fit map to show all markers
+        fitMapToMarkers();
+    });
+    
+    socket.on('userJoined', async (data) => {
         showAlert(`${data.username} joined the group!`, 'success');
+        
+        // Refresh members list
+        try {
+            const response = await fetch(`${API_BASE_URL}/api/users/${currentUser.groupId}`);
+            const members = await response.json();
+            updateMembersList(members);
+        } catch (error) {
+            console.error('Error refreshing members:', error);
+        }
     });
     
     socket.on('userLeft', (data) => {
@@ -521,6 +568,28 @@ function addDestinationMarker(lat, lng) {
 function centerMap() {
     if (currentUser.location) {
         map.setView([currentUser.location.latitude, currentUser.location.longitude], 13);
+    }
+}
+
+function fitMapToMarkers() {
+    const bounds = L.latLngBounds([]);
+    let hasMarkers = false;
+    
+    // Add all user markers to bounds
+    Object.values(userMarkers).forEach(marker => {
+        bounds.extend(marker.getLatLng());
+        hasMarkers = true;
+    });
+    
+    // Add destination marker if exists
+    if (destinationMarker) {
+        bounds.extend(destinationMarker.getLatLng());
+        hasMarkers = true;
+    }
+    
+    // Fit map to bounds if we have markers
+    if (hasMarkers) {
+        map.fitBounds(bounds, { padding: [50, 50], maxZoom: 15 });
     }
 }
 

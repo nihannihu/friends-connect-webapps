@@ -839,12 +839,12 @@ function updateMembersList(members) {
     memberCount.textContent = `(${members.length})`;
     
     if (members.length === 0) {
-        membersList.innerHTML = '<p class="no-members">No members online</p>';
+        membersList.innerHTML = '<p class="no-members">No members online ⚠️</p>';
         return;
     }
     
     membersList.innerHTML = '';
-    members.forEach(member => {
+    members.forEach((member, index) => {
         if (!member.isOnline) return;
         
         const memberItem = document.createElement('div');
@@ -859,11 +859,24 @@ function updateMembersList(members) {
         memberItem.innerHTML = `
             <div class="member-name">
                 <span class="member-status"></span>
-                <span>${member.username}${member.username === currentUser.username ? ' (You)' : ''}</span>
+                <span>${member.username}${member.username === currentUser.username ? ' (You) 👤' : ''}</span>
             </div>
-            <span class="member-eta">${etaDisplay}</span>
+            <span class="member-eta">${etaDisplay} ⏱️</span>
         `;
+        
+        // Add a staggered animation effect
+        memberItem.style.animationDelay = `${index * 0.1}s`;
+        memberItem.style.opacity = '0';
+        memberItem.style.transform = 'translateX(-20px)';
+        
         membersList.appendChild(memberItem);
+        
+        // Trigger the animation
+        setTimeout(() => {
+            memberItem.style.transition = 'all 0.3s ease';
+            memberItem.style.opacity = '1';
+            memberItem.style.transform = 'translateX(0)';
+        }, 50);
     });
 }
 
@@ -891,6 +904,11 @@ function showAlert(message, type = 'info') {
     
     alertsPanel.appendChild(alert);
     
+    // Add animation class for entrance
+    setTimeout(() => {
+        alert.style.animation = 'slideUp 0.3s ease';
+    }, 10);
+    
     setTimeout(() => {
         alert.style.animation = 'slideUp 0.3s ease reverse';
         setTimeout(() => alert.remove(), 300);
@@ -899,11 +917,20 @@ function showAlert(message, type = 'info') {
 
 // Modal Functions
 function showModal(modalId) {
-    document.getElementById(modalId).classList.remove('hidden');
+    const modal = document.getElementById(modalId);
+    modal.classList.remove('hidden');
+    // Add a slight delay to trigger the animation
+    setTimeout(() => {
+        modal.style.animation = 'fadeIn 0.3s ease';
+    }, 10);
 }
 
 function hideModal(modalId) {
-    document.getElementById(modalId).classList.add('hidden');
+    const modal = document.getElementById(modalId);
+    modal.style.animation = 'fadeIn 0.3s ease reverse';
+    setTimeout(() => {
+        modal.classList.add('hidden');
+    }, 300);
 }
 
 function showWelcomeModal() {

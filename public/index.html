@@ -14,11 +14,11 @@
         <!-- Header -->
         <header class="header">
             <div class="logo">
-                <span class="logo-icon">📍</span>
-                <h1>FriendsNavigator</h1>
+                <span class="logo-icon">🗺️</span>
+                <h1>FriendsNavigator 🚀</h1>
             </div>
             <div class="user-info" id="userInfo">
-                <span id="usernameDisplay"></span>
+                <span id="usernameDisplay">👤</span>
             </div>
         </header>
 
@@ -27,23 +27,23 @@
             <!-- Sidebar -->
             <aside class="sidebar">
                 <div class="group-section">
-                    <h2>Group Info</h2>
+                    <h2>👥 Group Info</h2>
                     <div class="group-card" id="groupCard">
-                        <p class="no-group">No group joined</p>
+                        <p class="no-group">No group joined 🚫</p>
                     </div>
                 </div>
 
                 <div class="members-section">
-                    <h2>Group Members <span id="memberCount">(0)</span></h2>
+                    <h2>👥 Group Members <span id="memberCount">(0)</span> 📊</h2>
                     <div class="members-list" id="membersList">
-                        <p class="no-members">No members online</p>
+                        <p class="no-members">No members online ⚠️</p>
                     </div>
                 </div>
 
                 <div class="destination-section">
-                    <h2>Destination</h2>
+                    <h2>📍 Destination</h2>
                     <div class="destination-card" id="destinationCard">
-                        <p class="no-destination">Set a destination to begin</p>
+                        <p class="no-destination">Set a destination to begin 🎯</p>
                     </div>
                     <button class="btn btn-primary" id="setDestinationBtn">
                         📌 Set Destination
@@ -54,10 +54,10 @@
                 </div>
 
                 <div class="eta-section">
-                    <h2>Your ETA</h2>
+                    <h2>⏱️ Your ETA</h2>
                     <div class="eta-display" id="etaDisplay">
                         <div class="eta-value">--</div>
-                        <div class="eta-label">minutes</div>
+                        <div class="eta-label">minutes ⏱️</div>
                     </div>
                 </div>
             </aside>
@@ -88,14 +88,14 @@
         <!-- Welcome Modal -->
         <div class="modal" id="welcomeModal">
             <div class="modal-content">
-                <h2>Welcome to FriendsNavigator! 👋</h2>
+                <h2>Welcome to FriendsNavigator! 👋✨</h2>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="usernameInput">Your Name</label>
+                        <label for="usernameInput">Your Name 📛</label>
                         <input type="text" id="usernameInput" placeholder="Enter your name" required>
                     </div>
                     <div class="form-group">
-                        <label>Choose Action</label>
+                        <label>Choose Action ⚙️</label>
                         <div class="action-buttons">
                             <button class="btn btn-primary" id="createGroupBtn">
                                 ➕ Create New Group
@@ -113,14 +113,14 @@
         <div class="modal hidden" id="createGroupModal">
             <div class="modal-content">
                 <button class="close-btn" id="closeCreateModal">&times;</button>
-                <h2>Create New Group</h2>
+                <h2>🆕 Create New Group</h2>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="groupNameInput">Group Name</label>
+                        <label for="groupNameInput">Group Name 🏷️</label>
                         <input type="text" id="groupNameInput" placeholder="e.g., Weekend Trip" required>
                     </div>
                     <button class="btn btn-primary btn-block" id="confirmCreateGroupBtn">
-                        Create Group
+                        🚀 Create Group
                     </button>
                 </div>
             </div>
@@ -130,18 +130,18 @@
         <div class="modal hidden" id="joinGroupModal">
             <div class="modal-content">
                 <button class="close-btn" id="closeJoinModal">&times;</button>
-                <h2>Join Group</h2>
+                <h2>🚪 Join Group</h2>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="groupIdInput">Group ID</label>
+                        <label for="groupIdInput">Group ID 🔑</label>
                         <input type="text" id="groupIdInput" placeholder="Enter group ID" required>
                     </div>
                     <button class="btn btn-primary btn-block" id="confirmJoinGroupBtn">
-                        Join Group
+                        ✅ Join Group
                     </button>
                 </div>
                 <div class="available-groups">
-                    <h3>Available Groups</h3>
+                    <h3>👥 Available Groups</h3>
                     <div id="groupsList"></div>
                 </div>
             </div>
@@ -151,24 +151,24 @@
         <div class="modal hidden" id="destinationModal">
             <div class="modal-content">
                 <button class="close-btn" id="closeDestinationModal">&times;</button>
-                <h2>Set Destination</h2>
+                <h2>📍 Set Destination</h2>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="destinationInput">Search Location</label>
+                        <label for="destinationInput">Search Location 🔍</label>
                         <input type="text" id="destinationInput" placeholder="Enter address or place name">
-                        <button class="btn btn-secondary" id="searchDestinationBtn">Search</button>
+                        <button class="btn btn-secondary" id="searchDestinationBtn">🔍 Search</button>
                     </div>
                     <div id="searchResults"></div>
-                    <p class="or-text">OR</p>
+                    <p class="or-text">OR ➕</p>
                     <div class="form-group">
-                        <label>Coordinates</label>
+                        <label>Coordinates 🌍</label>
                         <div class="coords-input">
                             <input type="number" id="destLatInput" placeholder="Latitude" step="any">
                             <input type="number" id="destLngInput" placeholder="Longitude" step="any">
                         </div>
                     </div>
                     <button class="btn btn-primary btn-block" id="confirmDestinationBtn">
-                        Set Destination
+                        ✅ Set Destination
                     </button>
                 </div>
             </div>

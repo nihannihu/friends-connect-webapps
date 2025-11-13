@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://github.com/nihannihu/friends-connect-webapps/sitemap.xml
+
+# SEO optimization for Nihan Nihu (nihannihu)
+# GitHub: @nihannihu
+# Instagram: @nihannihuu
+# LinkedIn: nihan-nihu

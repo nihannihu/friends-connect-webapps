@@ -1,15 +1,30 @@
 {
   "name": "friends-navigator-by-nihannihu",
   "version": "1.0.0",
-  "description": "FriendsNavigator by nihannihu - Group Navigation App for Friends with Real-time Location Sharing",
+  "description": "FriendsNavigator by Nihan Nihu (nihannihu) - Group Navigation App for Friends with Real-time Location Sharing. Find Nihan Nihu on GitHub (@nihannihu), Instagram (@nihannihuu), and LinkedIn (nihan-nihu).",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
     "migrate": "node migrate.js"
   },
-  "keywords": ["friends navigator", "group navigation", "real-time location sharing", "group travel", "nihannihu", "location sharing app", "friend finder", "travel companion"],
-  "author": "nihannihu",
+  "keywords": [
+    "Nihan Nihu", 
+    "nihannihu", 
+    "@nihannihuu", 
+    "nihan-nihu",
+    "friends navigator", 
+    "group navigation", 
+    "real-time location sharing", 
+    "group travel", 
+    "location sharing app", 
+    "friend finder", 
+    "travel companion",
+    "social navigation",
+    "live location tracking",
+    "group travel app"
+  ],
+  "author": "Nihan Nihu (nihannihu)",
   "license": "MIT",
   "dependencies": {
     "express": "^4.18.2",
@@ -21,5 +36,13 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.22"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nihannihu/friends-connect-webapps.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nihannihu/friends-connect-webapps/issues"
+  },
+  "homepage": "https://github.com/nihannihu/friends-connect-webapps#readme"
 }

@@ -1,10 +1,18 @@
-# FriendsNavigator by nihannihu
+# FriendsNavigator by Nihan Nihu (nihannihu)
 
 ![FriendsNavigator Demo](public/screenshot.png)
 
-A real-time group navigation app that enables friends to share their locations during travel. Built with modern web technologies for seamless group travel experiences.
+A real-time group navigation app that enables friends to share their locations during travel. Built with modern web technologies for seamless group travel experiences by **Nihan Nihu (nihannihu)**.
 
-## Features
+## 🔍 Find Nihan Nihu Online
+
+- **GitHub**: [@nihannihu](https://github.com/nihannihu)
+- **Instagram**: [@nihannihuu](https://www.instagram.com/nihannihuu)
+- **LinkedIn**: [nihan-nihu](https://www.linkedin.com/in/nihan-nihu)
+
+Search for "Nihan Nihu" or "nihannihu" on any search engine to find all my social profiles and projects.
+
+## 🌟 Features
 
 - 🗺️ **Real-time Location Sharing**: See your friends' locations update in real-time on the map
 - 🚗 **Route Planning**: Set destinations and view routes for all group members
@@ -13,11 +21,16 @@ A real-time group navigation app that enables friends to share their locations d
 - 🤝 **Meeting Point Suggestions**: Automatically suggest optimal meeting points
 - 📱 **Responsive Design**: Works on both desktop and mobile devices
 
-## Built by nihannihu
+## 👨‍💻 Built by Nihan Nihu (nihannihu)
 
-This project was created and developed by **nihannihu** as part of a hackathon project. The app demonstrates real-time web technologies and location-based services.
+This project was created and developed by **Nihan Nihu (nihannihu)** as part of a hackathon project. The app demonstrates real-time web technologies and location-based services. 
 
-## Technologies Used
+Nihan Nihu is a software developer who builds innovative web applications. You can find more of Nihan's work on:
+- GitHub: [@nihannihu](https://github.com/nihannihu)
+- Instagram: [@nihannihuu](https://www.instagram.com/nihannihuu)
+- LinkedIn: [nihan-nihu](https://www.linkedin.com/in/nihan-nihu)
+
+## 🛠️ Technologies Used
 
 - **Frontend**: HTML5, CSS3, JavaScript, Leaflet.js
 - **Backend**: Node.js, Express.js
@@ -26,7 +39,7 @@ This project was created and developed by **nihannihu** as part of a hackathon p
 - **Mapping**: Geoapify Maps and Routing API
 - **Deployment**: Render
 
-## Getting Started
+## 🚀 Getting Started
 
 ### Prerequisites
 
@@ -66,7 +79,7 @@ This project was created and developed by **nihannihu** as part of a hackathon p
 
 6. Visit `http://localhost:3000` in your browser
 
-## Usage
+## 📖 Usage
 
 1. Enter your name when prompted
 2. Create a new group or join an existing one using a group ID
@@ -74,16 +87,30 @@ This project was created and developed by **nihannihu** as part of a hackathon p
 4. Set a destination for the group
 5. Track everyone's location and ETA in real-time
 
-## Contributing
+## 🤝 Contributing
 
-Contributions are welcome! Feel free to fork this project by **nihannihu** and submit pull requests.
+Contributions are welcome! Feel free to fork this project by **Nihan Nihu (nihannihu)** and submit pull requests.
 
-## License
+Want to collaborate with Nihan? Reach out on:
+- GitHub: [@nihannihu](https://github.com/nihannihu)
+- Instagram: [@nihannihuu](https://www.instagram.com/nihannihuu)
+- LinkedIn: [nihan-nihu](https://www.linkedin.com/in/nihan-nihu)
+
+## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Contact
+## 📞 Contact Nihan Nihu
 
-**nihannihu** - [@nihannihu](https://github.com/nihannihu)
+**Nihan Nihu (nihannihu)**
+- GitHub: [@nihannihu](https://github.com/nihannihu)
+- Instagram: [@nihannihuu](https://www.instagram.com/nihannihuu)
+- LinkedIn: [nihan-nihu](https://www.linkedin.com/in/nihan-nihu)
 
-Project Link: [https://github.com/nihannihu/friends-connect-webapps](https://github.com/nihannihu/friends-connect-webapps)
+Search for "Nihan Nihu" or "@nihannihuu" on any platform to connect!
+
+**Project Link**: [https://github.com/nihannihu/friends-connect-webapps](https://github.com/nihannihu/friends-connect-webapps)
+
+## 🔎 SEO Keywords
+
+Nihan Nihu, nihannihu, @nihannihuu, nihan-nihu, FriendsNavigator, group navigation, real-time location sharing, travel app, friend finder, location sharing, group travel, map sharing, social navigation, live location tracking, group travel app
